@@ -129,7 +129,7 @@ class _FoodOrderState extends State<FoodOrder> {
                 onPressed: () {},
                 child: const Text(
                   'ยืนยันรายการอาหาร',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,),
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,),
                 ),
               ),
             ),
