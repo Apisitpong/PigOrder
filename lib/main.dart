@@ -4,10 +4,19 @@ import 'app_screens/check_bill/sum_order.dart';
 import 'app_screens/pre_order/drink_order.dart';
 import 'app_screens/pre_order/food_order.dart';
 import 'app_screens/pre_order/select_order.dart';
+import 'app_screens/provider/store.dart';
 import 'app_screens/select_zone.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: ((context) => Store()),
+      )
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,9 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SelectZone(),
+      home: const FoodOrder(),
     );
   }
 }
-
-

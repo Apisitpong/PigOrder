@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/store.dart';
 
 class FoodOrder extends StatefulWidget {
   const FoodOrder({Key? key}) : super(key: key);
@@ -13,41 +16,47 @@ class _FoodOrderState extends State<FoodOrder> {
       'name': 'ข้าวผัด',
       'price': '89 ฿',
       'imgUrl':
-          'https://almocooking.com/wp-content/uploads/2019/11/%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B8%88%E0%B8%B5%E0%B8%994.jpg'
+          'https://almocooking.com/wp-content/uploads/2019/11/%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B8%88%E0%B8%B5%E0%B8%994.jpg',
+      'count': 0,
     },
     {
       'name': 'กะเพรา',
       'price': '89 ฿',
       'imgUrl':
-          'https://th.bing.com/th/id/OIP.tTiamxp7Z_aRrvQSXx8HtgHaHa?w=166&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+          'https://th.bing.com/th/id/OIP.tTiamxp7Z_aRrvQSXx8HtgHaHa?w=166&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+      'count': 0,
     },
     {
       'name': 'ต้มยำ',
       'price': '189 ฿',
       'imgUrl':
-          'https://i.pinimg.com/originals/83/51/03/8351031ee9f67bd7f119c77af22f80b0.png'
+          'https://i.pinimg.com/originals/83/51/03/8351031ee9f67bd7f119c77af22f80b0.png',
+      'count': 0,
     },
     {
       'name': 'ผัดผงกะหรี่',
       'price': '129 ฿',
       'imgUrl':
-          'https://pstip.cc/upload/media/entries/2022-05/28/4918-entry-2-1653746065.jpg'
+          'https://pstip.cc/upload/media/entries/2022-05/28/4918-entry-2-1653746065.jpg',
+      'count': 0,
     },
     {
       'name': 'ยำ',
       'price': '109 ฿',
       'imgUrl':
-          'https://th.bing.com/th/id/OIP.RK-pYR4lof_HkDJbpze--QHaE8?pid=ImgDet&rs=1'
+          'https://th.bing.com/th/id/OIP.RK-pYR4lof_HkDJbpze--QHaE8?pid=ImgDet&rs=1',
+      'count': 0,
     },
     {
       'name': 'เอ็นไก่ทอด',
       'price': '79 ฿',
-      'imgUrl':
-          'https://img.kapook.com/u/surauch/movie4/EN00.jpg'
+      'imgUrl': 'https://img.kapook.com/u/surauch/movie4/EN00.jpg',
+      'count': 0,
     },
   ];
   @override
   Widget build(BuildContext context) {
+    var provider = context.watch<Store>();
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -62,20 +71,11 @@ class _FoodOrderState extends State<FoodOrder> {
         child: Column(
           children: [
             const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'อาหาร',
-              style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown),
-            ),
-            const SizedBox(
-              height: 20,
+              height: 30,
             ),
             GridView.count(
               crossAxisCount: 2,
+              childAspectRatio: 0.93,
               shrinkWrap: true,
               children: List.generate(dataFood.length, (index) {
                 return Column(
@@ -108,15 +108,37 @@ class _FoodOrderState extends State<FoodOrder> {
                                 const BorderRadius.all(Radius.circular(20))),
                       ),
                     ),
-                    const Text(
-                      '-  0  +',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: (){
+                              provider.remove(dataFood[index]['count']);
+                              setState(() {
+                                dataFood[index]['count'] = provider.count;
+                              });
+                            }, icon: const Icon(Icons.remove)),
+                         Text(
+                           dataFood[index]['count'].toString(),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              provider.add(dataFood[index]['count']);
+                              setState(() {
+                                dataFood[index]['count'] = provider.count;
+                              });
+                            }, icon: const Icon(Icons.add)),
+                      ],
                     ),
                   ],
                 );
               }),
             ),
+
             const SizedBox(
               height: 12,
             ),
@@ -129,7 +151,10 @@ class _FoodOrderState extends State<FoodOrder> {
                 onPressed: () {},
                 child: const Text(
                   'ยืนยันรายการอาหาร',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
