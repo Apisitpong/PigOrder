@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pig_order/app_screens/provider/store.dart';
+import 'package:provider/provider.dart';
 
 class DrinkOrder extends StatefulWidget {
   const DrinkOrder({Key? key}) : super(key: key);
@@ -11,43 +13,57 @@ class _DrinkOrderState extends State<DrinkOrder> {
   List dataFood = [
     {
       'name': 'น้ำแข็ง',
-      'price': '39 ฿',
+      'price': '39 ',
       'imgUrl':
-          'https://www.khaosod.co.th/wpapp/uploads/2021/05/%E0%B8%84%E0%B8%A5%E0%B8%B1%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%81%E0%B8%82%E0%B9%87%E0%B8%87.jpg'
+          'https://www.khaosod.co.th/wpapp/uploads/2021/05/%E0%B8%84%E0%B8%A5%E0%B8%B1%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%81%E0%B8%82%E0%B9%87%E0%B8%87.jpg',
+      'count': 0,
+      'sum': 0,
     },
     {
       'name': 'น้ำเปล่า',
-      'price': '19 ฿',
+      'price': '19 ',
       'imgUrl':
-          'https://newmonrakphokha.weebly.com/uploads/1/2/0/0/120009135/55_orig.jpg'
+          'https://newmonrakphokha.weebly.com/uploads/1/2/0/0/120009135/55_orig.jpg',
+      'count': 0,
+      'sum': 0,
     },
     {
       'name': 'โค้ก',
-      'price': '29 ฿',
+      'price': '29 ',
       'imgUrl':
-          'https://th.bing.com/th/id/OIP.EwNQLhpDfQb49QSl9gPnHQHaHa?pid=ImgDet&rs=1'
+          'https://th.bing.com/th/id/OIP.EwNQLhpDfQb49QSl9gPnHQHaHa?pid=ImgDet&rs=1',
+      'count': 0,
+      'sum': 0,
     },
     {
       'name': 'เบียร์สิงห์',
-      'price': '79 ฿',
+      'price': '79 ',
       'imgUrl':
-          'https://th.bing.com/th/id/R.f07c4957dca6cf44846f53539f63ae5d?rik=oZjSy0BQKSEwnQ&riu=http%3a%2f%2fwww.singhapattanachiangmai.com%2fwp-content%2fuploads%2f2016%2f02%2fsingha_500.jpg&ehk=oTM%2bsQMW%2fZMKbwOOFLqi2vdz24zlqFdAybx3v723yeQ%3d&risl=&pid=ImgRaw&r=0'
+          'https://th.bing.com/th/id/R.f07c4957dca6cf44846f53539f63ae5d?rik=oZjSy0BQKSEwnQ&riu=http%3a%2f%2fwww.singhapattanachiangmai.com%2fwp-content%2fuploads%2f2016%2f02%2fsingha_500.jpg&ehk=oTM%2bsQMW%2fZMKbwOOFLqi2vdz24zlqFdAybx3v723yeQ%3d&risl=&pid=ImgRaw&r=0',
+      'count': 0,
+      'sum': 0,
     },
     {
       'name': 'เบียร์ลีโอ',
-      'price': '69 ฿',
+      'price': '69 ',
       'imgUrl':
-          'https://amazingoriental.com/wp-content/uploads/2021/03/69432_01_416px.png'
+          'https://amazingoriental.com/wp-content/uploads/2021/03/69432_01_416px.png',
+      'count': 0,
+      'sum': 0,
     },
     {
       'name': 'โซดา',
-      'price': '19 ฿',
+      'price': '19 ',
       'imgUrl':
-          'https://th.bing.com/th/id/R.b8b50c29bbca79b8106871eb42b80237?rik=y0WyM3pxNXcFVA&riu=http%3a%2f%2fwww.singhapattanachiangmai.com%2fwp-content%2fuploads%2f2017%2f07%2f%e0%b9%82%e0%b8%8b%e0%b8%94%e0%b8%b2%e0%b8%aa%e0%b8%b4%e0%b8%87%e0%b8%ab%e0%b9%8c.jpg&ehk=kq6iPfbnWQxAELlYlfeQqeJG0Oqh2XFvR3BPC5Luamg%3d&risl=&pid=ImgRaw&r=0'
+          'https://th.bing.com/th/id/R.b8b50c29bbca79b8106871eb42b80237?rik=y0WyM3pxNXcFVA&riu=http%3a%2f%2fwww.singhapattanachiangmai.com%2fwp-content%2fuploads%2f2017%2f07%2f%e0%b9%82%e0%b8%8b%e0%b8%94%e0%b8%b2%e0%b8%aa%e0%b8%b4%e0%b8%87%e0%b8%ab%e0%b9%8c.jpg&ehk=kq6iPfbnWQxAELlYlfeQqeJG0Oqh2XFvR3BPC5Luamg%3d&risl=&pid=ImgRaw&r=0',
+      'count': 0,
+      'sum': 0,
     },
   ];
   @override
   Widget build(BuildContext context) {
+    int? sumAll = 0;
+    var provider = context.watch<Store>();
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -80,7 +96,7 @@ class _DrinkOrderState extends State<DrinkOrder> {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          dataFood[index]['price'],
+                          dataFood[index]['price'] + '฿',
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -103,16 +119,40 @@ class _DrinkOrderState extends State<DrinkOrder> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.remove)),
-                        const Text(
-                          '0',
-                          style: TextStyle(
+                            onPressed: () {
+                              provider.remove(dataFood[index]);
+                              setState(() {
+                                dataFood[index]['count'] = provider.count;
+                                dataFood[index]['sum'] = provider.sum;
+                                sumAll = 0;
+                                for (int i = 0; i < dataFood.length; i++) {
+                                  sumAll = (sumAll! + dataFood[i]['sum']) as int?;
+                                  provider.res(sumAll);
+                                }
+                              });
+                            },
+                            icon: const Icon(Icons.remove)),
+                        Text(
+                          dataFood[index]['count'].toString(),
+                          style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey),
                         ),
                         IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.add)),
+                            onPressed: () {
+                              provider.add(dataFood[index]);
+                              setState(() {
+                                dataFood[index]['count'] = provider.count;
+                                dataFood[index]['sum'] = provider.sum;
+                                sumAll = 0;
+                                for (int i = 0; i < dataFood.length; i++) {
+                                  sumAll = (sumAll! + dataFood[i]['sum']) as int?;
+                                  provider.res(sumAll);
+                                }
+                              });
+                            },
+                            icon: const Icon(Icons.add)),
                       ],
                     ),
                   ],

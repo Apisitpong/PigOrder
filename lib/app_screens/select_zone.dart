@@ -30,9 +30,21 @@ class _SelectZoneState extends State<SelectZone> {
       body: Center(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(80),
-              color: Colors.blue,
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0,left: 4,right: 4),
+              child: Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      'https://static.wixstatic.com/media/2defb0_7b152781ccc740f9a391fb0a517e823f.jpg/v1/fill/w_500,h_310,al_c,q_80,usm_0.66_1.00_0.01/2defb0_7b152781ccc740f9a391fb0a517e823f.jpg',
+                    ),
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
             ),
             // const SizedBox(
             //   height: 60,
@@ -76,21 +88,23 @@ class ButtonTable extends StatelessWidget {
     required this.index,
   }) : super(key: key);
 
-  final  numTable;
-  final  index;
+  final numTable;
+  final index;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => const SelectOrder())),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => const SelectOrder())),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
           height: 100,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.green, width: 8)),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.brown, width: 5)),
           child: Center(
               child: Text(
             numTable[index]['number'],

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pig_order/app_screens/provider/store.dart';
+import 'package:provider/provider.dart';
 
 class SumOrder extends StatelessWidget {
   const SumOrder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var provider = context.watch<Store>();
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -25,8 +28,8 @@ class SumOrder extends StatelessWidget {
             listOrder(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'ราคารวม',
                   style: TextStyle(
                     fontSize: 28,
@@ -34,13 +37,13 @@ class SumOrder extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '2345',
-                  style: TextStyle(
+                  provider.sumAll.toString(),
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
+                const Text(
                   'บาท',
                   style: TextStyle(
                     fontSize: 28,
