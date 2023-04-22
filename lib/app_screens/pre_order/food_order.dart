@@ -129,7 +129,7 @@ class _FoodOrderState extends State<FoodOrder> {
                                 for (int i = 0; i < dataFood.length; i++) {
                                   sumAll =
                                       (sumAll! + dataFood[i]['sum']) as int?;
-                                  provider.res(sumAll);
+                                  provider.sumPrice(sumAll);
                                 }
                               });
                             },
@@ -151,7 +151,7 @@ class _FoodOrderState extends State<FoodOrder> {
                                 for (int i = 0; i < dataFood.length; i++) {
                                   sumAll =
                                       (sumAll! + dataFood[i]['sum']) as int?;
-                                  provider.res(sumAll);
+                                  provider.sumPrice(sumAll);
                                 }
                               });
                             },
@@ -184,7 +184,8 @@ class _FoodOrderState extends State<FoodOrder> {
                     context: context,
                     builder: (ctx) => AlertDialog(
                       title: const Text("รายการอาหารที่สั่ง"),
-                      content: Text(
+                      content:
+                      Text(
                         'ราคา  ${provider.sumAll}   บาท',
                         style: const TextStyle(
                             fontSize: 16,
@@ -218,6 +219,7 @@ class _FoodOrderState extends State<FoodOrder> {
                       ],
                     ),
                   );
+                  provider.sumOrder(dataFood);
                 },
                 child: const Text(
                   'ยืนยันรายการอาหาร',

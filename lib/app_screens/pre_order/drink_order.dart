@@ -127,7 +127,7 @@ class _DrinkOrderState extends State<DrinkOrder> {
                                 sumAll = 0;
                                 for (int i = 0; i < dataFood.length; i++) {
                                   sumAll = (sumAll! + dataFood[i]['sum']) as int?;
-                                  provider.res(sumAll);
+                                  provider.sumPrice(sumAll);
                                 }
                               });
                             },
@@ -148,7 +148,7 @@ class _DrinkOrderState extends State<DrinkOrder> {
                                 sumAll = 0;
                                 for (int i = 0; i < dataFood.length; i++) {
                                   sumAll = (sumAll! + dataFood[i]['sum']) as int?;
-                                  provider.res(sumAll);
+                                  provider.sumPrice(sumAll);
                                 }
                               });
                             },

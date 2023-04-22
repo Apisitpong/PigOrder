@@ -5,6 +5,7 @@ class Store extends ChangeNotifier {
   int count = 0;
   int sum = 0;
   int sumAll = 0;
+  List orderSum = [];
 
   void add(index) {
     count = index['count'];
@@ -26,16 +27,37 @@ class Store extends ChangeNotifier {
     notifyListeners();
   }
 
-  void sumOrder(List foods) {
-    // sum = count *;
-    notifyListeners();
-  }
-
-  void res(sum) {
+  void sumPrice(sum) {
     sumAll = sum;
     notifyListeners();
   }
-  void addOrder(dataFood){
 
+  void sumOrder(dataFood) {
+    int id = orderSum.length;
+    print(orderSum.length);
+    orderSum.add([
+      {'id': id,'count':0},
+      dataFood
+    ]);
+    addOrder(0, 'dataFood');
+    notifyListeners();
+  }
+
+  void addOrder(int id, String order) {
+    List dataFood = [];
+
+    order == 'dataFood'
+        ? {
+            orderSum[id][1]
+                .map((e) => {dataFood.add(e), print('e : ${e['name']}')})
+                .toList()
+                .toString(),
+          }
+        : print(orderSum[id][0][order]);
+    print(orderSum);
+    print(orderSum[0][1]);
+    print(orderSum[0][1].where((element) => element.count > 0).toList());
+
+    notifyListeners();
   }
 }
